@@ -14,16 +14,16 @@ template='<VirtualHost *:80>
 	    Allow from All
 	</Directory>
 
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	ErrorLog \${APACHE_LOG_DIR}/error.log
+	CustomLog \${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>'
 
-echo "Server name: "
-read server_name
-echo "Server extension: "
-read server_extension
-echo "Project path: "
-read project_path
+default_extension=localhost
+
+read -p "Enter Server name: " server_name
+read -p "Enter Server extension:[$default_extension] " server_extension
+server_extension=${server_extension:-$default_extension}
+read -p "Enter Project path: " project_path
 
 vhost=$template
 vhost=$(string_replace "$vhost" "$server_name" server_name)
@@ -32,6 +32,8 @@ vhost=$(string_replace "$vhost" "$project_path" project_path)
 
 printf -v site "%s.conf" "$server_name"
 printf -v path "/etc/apache2/sites-available/%s" "$site"
+
+echo -e "$vhost"
 
 sudo bash -c 'echo -e "'"$vhost"'" > "'"$path"'"'
 
