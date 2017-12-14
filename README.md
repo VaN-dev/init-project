@@ -20,9 +20,9 @@ sudo chmod +x /path/to/project/init-project.sh
 ```
 
 ## set an alias to use it from anywhere in shell (optional)
-```
-alias init-project='sh -c /path/to/project/init-project.sh'
-```
+- open your .bashrc (or .zshrc or whatever, depending on your shell) file
+- add the following line : `alias init-project='sh -c /path/to/project/init-project.sh'`
+- reload your bash with `. ~/.bashrc` (or .zshrc, etc.) or just open a new terminal
 
 # Usage
 Simply run the command 
